@@ -10,16 +10,76 @@
 #include "RFunction.h"
 #include "const.h"
 
+void printComplex(complex a)
+{
+    printf("%f + j %f\n", a.re, a.im);
+}
+
+double norm(complex *vec, int h)
+{
+    double nm = 0;
+    for (int i = 0; i < h; i++)
+        nm += pow(vec[h].re, 2) + pow(vec[h].im, 2);
+
+    return sqrt(nm);
+}
+
+complex **exchangeColmn(complex **A, int w, int h, int col_a, int col_b)
+{
+    complex *tmp;
+    tmp = calloc_com(h);
+
+    for (int j = 0; j < h; j++)
+    {
+        tmp[j] = A[col_a][j];
+    }
+
+    for (int j = 0; j < h; j++)
+    {
+        A[col_a][j] = A[col_b][j];
+        A[col_b][j] = tmp[j];
+    }
+    free(tmp);
+    return A;
+}
+
+int argmin(double *norms, int h)
+{
+    int i = 0;
+    double _norms[NT];
+
+    for (i = 0; i < NT; i++)
+    {
+        _norms[i] = norms[i];
+    }
+
+    qsort(_norms, NT, sizeof(double), cmp);
+
+    for (i = 0; i < NT; i++)
+    {
+        if (_norms[0] == norms[i])
+        {
+            return i;
+        }
+    }
+}
+
+complex **makeZeroMatrix(int w, int h)
+{
+    complex **Z = calloc_com2d(w, h);
+    return Z;
+}
+
 void printPotinter(char *error_pointer, complex **A)
 {
     printf("%p\n", A);
 }
 
-void copyMatrix(complex **source, complex **destination, int rows, int cols)
+void copyMatrix(complex **source, complex **destination, int w, int h)
 {
-    for (int i = 0; i < rows; i++)
+    for (int i = 0; i < w; i++)
     {
-        for (int j = 0; j < cols; j++)
+        for (int j = 0; j < h; j++)
         {
             destination[i][j] = source[i][j];
         }
@@ -111,11 +171,11 @@ complex *mulEach(complex *Vec, complex a)
     return Ans;
 }
 
-complex *makeVecFromMat(complex **Mat, int index)
+complex *makeVecFromMat(complex **Mat, int h, int index)
 {
 
-    complex *Vec = calloc_com(NR);
-    for (int cnt = 0; cnt < NR; cnt++)
+    complex *Vec = calloc_com(h);
+    for (int cnt = 0; cnt < h; cnt++)
     {
         //   printf("%d\n", cnt);
         Vec[cnt] = Mat[index][cnt];
@@ -170,20 +230,15 @@ complex **updateChannelMatrix(complex **H, int minIndex)
     return H;
 }
 
-int cmp(const void *x, const void *y)
+int cmp(const void *a, const void *b)
 {
-    if (*(int *)x > *(int *)y)
-    {
-        return 1;
-    }
-    else if (*(int *)x < *(int *)y)
-    {
+    double diff = *(double *)a - *(double *)b;
+    if (diff < 0)
         return -1;
-    }
+    else if (diff > 0)
+        return 1;
     else
-    {
         return 0;
-    }
 }
 
 int minDiag(complex **A, int preColSize)
@@ -526,7 +581,7 @@ void printAnyComplexVec(complex *A, int W)
 void printAnyComplexMatrix(complex **A, int W, int H)
 {
     int x, y;
-    printf("----------------- Matrix : phasor (%d x %d) -----------------------\n", W, H);
+    printf("----------------- Matrix : complex (%d x %d) -----------------------\n", W, H);
     for (y = 0; y < H; y++)
     {
         for (x = 0; x < W; x++)
@@ -535,6 +590,29 @@ void printAnyComplexMatrix(complex **A, int W, int H)
                 printf("%+1.1f -j %.1f  ", A[x][y].re, fabs(A[x][y].im));
             else
                 printf("%+1.1f +j %.1f  ", A[x][y].re, fabs(A[x][y].im));
+        }
+        printf("\n");
+    }
+    puts("");
+}
+
+void printAnyComplexMatrixColored(complex **A, int W, int H)
+{
+    int x, y;
+    printf("----------------- Matrix : complex (%d x %d) -----------------------\n", W, H);
+    for (y = 0; y < H; y++)
+    {
+        for (x = 0; x < W; x++)
+        {
+            if ((floor(A[x][y].re * 10.0) / 10.0 != 0.0L || floor(A[x][y].im * 10.0) / 10.0 != 0.0L) || (round(A[x][y].re) == 1.0))
+                printf("\e[46m");
+
+            if (A[x][y].im < 0)
+                printf("%+1.1f -j %.1f  ", A[x][y].re, fabs(A[x][y].im));
+            else
+                printf("%+1.1f +j %.1f  ", A[x][y].re, fabs(A[x][y].im));
+
+            printf("\e[m");
         }
         printf("\n");
     }
@@ -575,8 +653,8 @@ complex complex_div(complex x, complex y)
 
     d = y.re * y.re + y.im * y.im;
 
-    z.re = (x.re * y.re + x.im * y.im) / d;
-    z.im = (-x.re * y.im + x.im * y.re) / d;
+    z.re = (double)(x.re * y.re + x.im * y.im) / (double)d;
+    z.im = (double)(-x.re * y.im + x.im * y.re) / (double)d;
 
     return z;
 }

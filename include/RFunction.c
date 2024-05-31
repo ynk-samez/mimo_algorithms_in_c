@@ -588,6 +588,8 @@ void SQRD(int *p, complex **q, complex **r)
         for (j = 0; j < NR + NT; j++)
             q[j][i] = complex_div(q[j][i], r[i][i]);
 
+        /*✂︎---------✂︎--------✂︎-----✂︎--✂︎✂*/
+
         for (j = i + 1; j < NT; j++)
         {
             for (k = 0; k < NR + NT; k++)

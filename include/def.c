@@ -11,6 +11,16 @@
 #include "const.h"
 #include "complexArith.h"
 
+void printInfo()
+{
+    printf("\e[32m");
+    printf("Eb/N0 : %d --> %d\n", ENMIN, ENMAX);
+    printf("NT = %d\n", NT);
+    printf("NR = %d\n", NR);
+    printf("Send = %e\n", LOOP);
+    printf("\e[m\n");
+}
+
 void MatTrans(complex **A, complex **ans, int A_row, int A_column)
 {
     int i, j;

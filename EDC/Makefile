@@ -3,7 +3,7 @@ TARGET = main.app
 
 # ソースファイル
 INCDIR  = -I../include/
-SOURCES = main.c ../include/complexArith.c ../include/def.c ../include/RFunction.c
+SOURCES = main.c ../include/complexArith.c ../include/def.c ../include/Rfunction.c ../include/error_detection.c
 # オブジェクトファイル
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -14,7 +14,6 @@ CFLAGS = -O0 -Wall
 
 # 実行ファイルのビルド
 $(TARGET): $(OBJECTS) $(SOURCES)
-	rm -rf *.gch *.o $(TARGET)
 	$(CC) $(CFLAGS)  $(INCDIR) -c $(SOURCES)
 	$(CC) $(CFLAGS) $(SOURCES) -o $(TARGET)
 	./$(TARGET)
@@ -31,3 +30,4 @@ clean:
 debug:$(SOURCES)
 	$(CC) -g $(SOURCES) -o seg
 	gdb ./seg
+

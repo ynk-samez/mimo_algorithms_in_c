@@ -1,0 +1,29 @@
+    /*
+        for (src = 0; src < STATES; src++)
+        {
+            for (dst = 0; dst < STATES; dst++)
+            {
+
+                if (transitionsCheck(states[src], states[dst]))
+                {
+                    printf("\uf058  (OK)  %s --. %s\n", states[src], states[dst]);
+                }
+                else
+                {
+                    printf("\uf00d  (NG)  %s --. %s\n", states[src], states[dst]);
+                }
+            }
+        }
+
+        for (src = 0; src < STATES; src++)
+        {
+            for (dst = 0; dst < STATES; dst++)
+            {
+
+                if (transitionsCheck(states[src], states[dst]))
+                    printf("\uf058  (OK)  %s . %s  label/%s \n", states[src], states[dst], getLabels(states[src], states[dst]));
+            }
+        }
+        */
+    // printSignals(input, bit_length);
+    // printSignals(encorded_signals, bit_length * 2);

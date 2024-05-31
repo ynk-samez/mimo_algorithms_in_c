@@ -24,12 +24,14 @@ int main(void)
     dir = dir + 1;
     printf("%s\n", dir);
     sprintf(filename, "../results/%s_%dx%d.d", dir, NT, NR);
-    printf("%s\n", filename);
+
     if ((fp = fopen(filename, "w")) == NULL)
     {
         fprintf(stderr, "can not open write file.\n");
         exit(1);
     }
+
+    printInfo();
 
     // fprintf(fp, "Eb/N0[db]\tBER\n");
     double error_sum = 0.0;

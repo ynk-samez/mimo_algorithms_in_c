@@ -2,7 +2,7 @@
 TARGET = main.app
 
 # ソースファイル
-SOURCES = main.c ../include/complexArith.c ../include/def.c ../include/Rfunction.c
+SOURCES = main.c ../include/complexArith.c ../include/def.c ../include/RFunction.c
 # オブジェクトファイル
 OBJECTS = $(SOURCES:.c=.o)
 

@@ -46,8 +46,8 @@ int main(void)
     double error_sum = 0.0;
     double error_counter = 0.0, ber, en, stv, vd_meanValue = 0.0;
 
-    srand((unsigned)time(NULL));
-    // srand(1);
+    // srand((unsigned)time(NULL));
+    srand(1);
     int i, j, minIndex, loop, x, y;
 
     int colSize, cnt;

@@ -1,6 +1,7 @@
 #ifndef DEF_H
 #define DEF_H
 #include "complexArith.h"
+void printInfo();
 complex *genChannel(int width, int height, int stv, int mean);
 double scalar(complex A);
 void MatTrans(complex **A, complex **ans, int A_row, int A_column); // 共役転置行列の生成

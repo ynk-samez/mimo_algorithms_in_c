@@ -28,7 +28,7 @@ int main(void)
     dir = dir + 1;
     printf("%s\n", dir);
     sprintf(filename, "../results/%s_%dx%d.d", dir, NT, NR);
-
+    printInfo();
     if ((fp = fopen(filename, "w")) == NULL)
     {
         fprintf(stderr, "can not open write file.\n");
@@ -47,8 +47,8 @@ int main(void)
     Xd = calloc_com(NT);
 
     W = calloc_com2d(NR, NT);
-    // srand((unsigned)time(NULL));
-    srand(1);
+    srand((unsigned)time(NULL));
+    // srand(1);
     for (en = ENMIN; en <= ENMAX; en++)
     {
         stv = STV(en); // 標準偏差
@@ -79,7 +79,7 @@ int main(void)
                 (X[i].im != Xd[i].im) ? error_sum++ : error_sum;
         }
 
-        ber = error_sum / ((LOOP) * 2 * NN); // 実数と虚数があるので分母2倍
+        ber = error_sum / ((LOOP) * 2 * NT); // 実数と虚数があるので分母2倍
         printf("EN:%.2f  ber:%.8f\n", en, ber);
         fprintf(fp, "%.2f\t%.8f\n", en, ber);
     }

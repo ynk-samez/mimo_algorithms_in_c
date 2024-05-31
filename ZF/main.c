@@ -38,11 +38,12 @@ int main(void)
     double error_counter = 0.0, ber, en, stv, vd_meanValue = 0.0;
     int i, j, k, loop;
 
-    if ((int)NT != (int)NR)
+    if (NT != NR)
     {
-        puts("error");
+        puts("error. please reconfigure Constance number.");
         pause();
     }
+    printInfo();
     int NN = NT;
     srand((unsigned)time(NULL));
     for (en = ENMIN; en <= ENMAX; en++)

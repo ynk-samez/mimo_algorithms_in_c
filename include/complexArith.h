@@ -11,13 +11,19 @@ typedef struct
     double re;
     double im;
 } complex;
+
+void printComplex(complex);
+double norm(complex *vec, int h);
+complex **exchangeColmn(complex **A, int w, int h, int col_a, int col_b);
+int argmin(double *norms, int h);
+complex **makeZeroMatrix(int w, int h);
 int cmp(const void *x, const void *y);
 void copyMatrix(complex **source, complex **destination, int rows, int cols);
 complex **calcJmatrix(complex **W, complex **H, int w, int h);
 complex **calcWeightMatrix(complex **H, int w, int h, double stv);
 complex **hermitianMatrix(complex **Matrix, int w, int h);
 complex **deleteCol(complex **H, int w, int h, int index);
-complex *makeVecFromMat(complex **Mat, int index);
+complex *makeVecFromMat(complex **Mat, int h, int index);
 complex *mulEach(complex *Vec, complex a);
 void printPotinter(char *error_pointer, complex **A);
 int minDiag(complex **A, int);
@@ -36,6 +42,7 @@ complex **addComplexMat(complex **, complex **, int w, int h);
 complex **transposeMatrix(complex **A, int w, int h);
 complex **conjugateMatrix(complex **, int w, int h);
 complex **invMatrix(complex **, int Size);
+void printAnyComplexMatrixColored(complex **A, int W, int H);
 void printAnyComplexMatrix(complex **A, int W, int H);
 void printAnyComplexVec(complex *A, int W);
 complex *genRandomInput();
