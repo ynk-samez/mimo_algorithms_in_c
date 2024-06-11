@@ -24,8 +24,8 @@ set colorsequence classic
 
 
 #file6
-file5= "'MMSE_2x2.d'";
-title5="'MMSE (2x2)'";
+file5= "'EDC_1x1.d'";
+title5="'pure  SISO'";
 
 #file0
 file0= "'MMSE-SIC_2x2.d'";
@@ -57,5 +57,5 @@ plot2=sprintf("%s with %s title %s", file2, style1,title2);
 plot3=sprintf("%s with %s title %s", file3, style1,title3);
 #plot4=sprintf("%s with %s title %s", file4, style1,title4);
 plot5=sprintf("%s with %s title %s", file5, style1,title5);
-plot[-10:20]\
- @plot0 , @plot3 ,@plot2 , @plot1 ;
+plot[-10:10]\
+ @plot5 ;

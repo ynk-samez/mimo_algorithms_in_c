@@ -14,16 +14,27 @@
 
 int main(void)
 {
-    Node *node = (Node *)malloc((BIT_LENGTH * 4 * 2 - 3) * sizeof(Node));
-    initNode(node, BIT_LENGTH * 2 * 4 - 3);
+    int *ans;
+    Node *node = (Node *)malloc((NODE_SIZE) * sizeof(Node));
+    initNode(node, NODE_SIZE);
 
     signals input[] = {0, 1, 0, 0, 1, 0, 0};
-    signals *encorded_signals = encorder(input, BIT_LENGTH);
-
-    printSignals(encorded_signals, BIT_LENGTH * 2);
-    node = trellis(node, input, encorded_signals);
+    int input_len = sizeof(input) / sizeof(signals);
+    signals *encorded_signals = encorder(input, input_len, 3);
+    printSignals(encorded_signals, input_len * 2);
+    node = trellis(node, encorded_signals);
 
     printResults(node);
-    viterbi(node);
+    ans = viterbi(node);
+    printSurvivorPath(ans, encorded_signals, "encorded");
+
+    //  encorded_signals[5] ^= encorded_signals[5];
+
+    // node = trellis(node, encorded_signals);
+    // ans = viterbi(node);
+    // printSurvivorPath(ans, encorded_signals, "error   ");
+
+    // string msg = "hello world";
+    // asciiToBinSeries(msg, 12);
     return 0;
 }

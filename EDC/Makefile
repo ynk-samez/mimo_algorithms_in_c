@@ -3,7 +3,7 @@ TARGET = main.app
 
 # ソースファイル
 INCDIR  = -I../include/
-SOURCES = main.c ../include/complexArith.c ../include/def.c ../include/Rfunction.c ../include/error_detection.c
+SOURCES = siso.c ../include/complexArith.c ../include/def.c ../include/Rfunction.c ../include/error_detection.c
 # オブジェクトファイル
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -17,6 +17,7 @@ $(TARGET): $(OBJECTS) $(SOURCES)
 	$(CC) $(CFLAGS)  $(INCDIR) -c $(SOURCES)
 	$(CC) $(CFLAGS) $(SOURCES) -o $(TARGET)
 	./$(TARGET)
+	make clean
 
 # オブジェクトファイルのビルド
 %.o: %.c
