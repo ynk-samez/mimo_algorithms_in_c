@@ -2,7 +2,7 @@
 this repo is for the mimo algorithms learners, and covers ZF, MLD, MMSE, MMSE-SIC, and channel estimation Algorithms. 
 
 # How to Run
-1. if you wanna simlate MLD
+1. change directry 
 
 ```bash
   cd MLD
